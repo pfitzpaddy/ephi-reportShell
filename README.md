@@ -10,20 +10,24 @@
 
 # Running ephiPulse
 
-Once the VirtualBox is completed installation, you can access the configured ephiPulse Ubuntu LTS 16.0.4 Virtual Machine via the ``vagrant ssh`` command
-
 Steps
 
-1. Within the ``ephi-reportShell`` folder, ssh into machine
+1. In the terminal, clone this repository and navigate into ``ephi-reportShell``
+
+2. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 and server configuration detailed in ``ephi-reportShell.sh``
+
+3. Once installation is complete, ``ssh`` into the machine
 
 		$ vagrant ssh
 		
-2. Within the server, navigate to the ``ephi-reportEngine`` repository
+4. Within the server, navigate to the ``ephi-reportPulse`` repository
 
 		$ cd /home/ubuntu/nginx/www/ephi-reportEngine
 		
-3. Start the Sails RestAPI application
+5. Start the Sails RestAPI application
 
 		$ sudo sails lift
 
-4. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
+6. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080) and Tomcat8 is running!
+
+7. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
