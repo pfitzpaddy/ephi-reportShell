@@ -110,7 +110,6 @@ npm -v
 # install sails
 	# https://sailsjs.com/
 sudo npm install sails@1.2.4 -g
-sudo npm install sails-postgresql@1.0.2 -g
 sails -v
 
 # ####################################################### pm2
@@ -191,3 +190,11 @@ server {
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 # reload configuration
 sudo service nginx restart
+
+
+# ####################################################### Start the APP!
+# app location
+cd /home/ubuntu/nginx/www/ephi-reportPulse
+# sudo sails lift
+sudo sails lift
+
