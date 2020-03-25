@@ -83,10 +83,10 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 # ####################################################### ODK Aggregate
 # 7) install ODK Aggregate
 	# https://github.com/opendatakit/aggregate/blob/v2.0.5/docs/build-the-installer-app.md
-cd /home/ubuntu/data
-wget https://github.com/opendatakit/aggregate/archive/v2.0.5.tar.gz
-sudo tar xzvf v2.0.5.tar.gz 
-cd aggregate-2.0.5
+# cd /home/ubuntu/data
+# wget https://github.com/opendatakit/aggregate/archive/v2.0.5.tar.gz
+# sudo tar xzvf v2.0.5.tar.gz 
+# cd aggregate-2.0.5
 
 
 
