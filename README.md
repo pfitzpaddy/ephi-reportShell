@@ -6,9 +6,9 @@ Report. Validate. Protect.
 
 ### Requirements
 
-- Dropbox 33.4.xx
-- Vagrant v1.9.xx
-- VirtualBox v5.1.xx
+- Dropbox 93.x.x
+- Vagrant v2.x.x
+- VirtualBox v6.x.x
 
 # Running ephiPulse
 
