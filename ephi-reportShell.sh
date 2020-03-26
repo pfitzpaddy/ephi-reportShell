@@ -13,6 +13,7 @@
 # ####################################################### REFRESH CACHE
 # apt update
 echo "------------ APT UPDATE ------------" 
+echo "------------ " 
 sudo apt update
 
 
@@ -20,6 +21,7 @@ sudo apt update
 # ####################################################### INSTALL UTILITIES
 # utilities
 echo "------------ INSTALL UTILITIES ------------" 
+echo "------------ " 
 
 # Git
 sudo apt install -y git
@@ -32,11 +34,13 @@ git --version
 # ####################################################### ODK Aggregate
 ### INSTALL ODK AGGREGATE (https://docs.opendatakit.org/aggregate-tomcat/)
 echo "------------ INSTALL ODK Aggregate ------------" 
+echo "------------ " 
 
 
 # ####################################################### Tomcat8
 # 1), 2) & 3)
 echo "------------ install tomcat8 ------------" 
+echo "------------ " 
 	# https://www.linode.com/docs/development/frameworks/apache-tomcat-on-ubuntu-16-04/
 sudo apt-get install -y tomcat8 tomcat8-docs tomcat8-examples tomcat8-admin tomcat8-user # (OpenJDK installed as dependency)
 # add tomcat admin page
@@ -51,6 +55,7 @@ sudo systemctl start tomcat8
 # ####################################################### PostgreSQL && PostGIS
 # 6) install PostgreSQL && spatial databases
 echo "------------ install PostgreSQL && PostGIS ------------"
+echo "------------ " 
  # https://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS24UbuntuPGSQL10Apt
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt xenial-pgdg main" >> /etc/apt/sources.list'
 wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
@@ -75,6 +80,7 @@ sudo /etc/init.d/postgresql restart
 # ####################################################### Spatial DB
 # 6a) backup spatial databases
 echo "------------ restore administrative spatial db tables ------------"
+echo "------------ " 
 # admin 1, 2, 3 && health facilities
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_1.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_2.sql
@@ -91,7 +97,8 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 # cd aggregate-2.0.5
 
 
-echo "------------ INSTALL APP ENVIONRMENT ------------" 
+echo "------------ INSTALL APP ENVIONRMENT ------------"
+echo "------------ " 
 
 # ####################################################### Nginx
 # install nginx (https://www.nginx.com/)
@@ -132,6 +139,7 @@ sudo npm install
 # ####################################################### ephi-reportPulse sails db connection
 # local config to protect database connection string
 echo "------------ CONFIGURE DB CONNECTION ------------" 
+echo "------------ " 
 # create local.js file (db connection strings, ignored in repo)
 echo -e "/**
  * Local environment settings
@@ -151,6 +159,7 @@ module.exports.datastores = {
 # ####################################################### Nginx
 # nginx (https://www.nginx.com/)
 echo "------------ CONFIGURE NGINX WEB CONFIG ------------" 
+echo "------------ " 
 # set nginx conf
 echo -e "##
 # You should look at the following URL's in order to grasp a solid understanding
@@ -202,6 +211,7 @@ sudo service nginx restart
 # ####################################################### Start the APP!
 # start ephiPulse
 echo "------------ START THE APP ------------" 
+echo "------------ " 
 # app location
 cd /home/ubuntu/nginx/www/ephi-reportPulse
 # sudo sails lift
