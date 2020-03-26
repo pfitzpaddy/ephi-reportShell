@@ -74,6 +74,9 @@ sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/po
 sudo sed -i '$a host    all             all             0.0.0.0/0               md5' /etc/postgresql/10/main/pg_hba.conf
 # allow connection on localhost cmd line without password
 sudo sed -i "s|peer|trust|" /etc/postgresql/10/main/pg_hba.conf
+
+echo "------------ restart PostgreSQL ------------"
+echo "------------ "
 # restart (to update changes)
 sudo /etc/init.d/postgresql restart
 
