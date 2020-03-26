@@ -109,7 +109,7 @@ nginx -v
 # install node
 	# https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/
 sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-sudo apt install -y nodejs@13.11.0
+sudo apt install -y nodejs
 node -v
 npm -v
 
@@ -203,7 +203,7 @@ server {
 
 }" | sudo tee /etc/nginx/sites-available/default
 # symb link
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+# sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 # reload configuration
 sudo service nginx restart
 
