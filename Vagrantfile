@@ -56,7 +56,7 @@ Vagrant.configure(2) do |config|
       "modifyvm", :id,
       "--hwvirtex", "on",
       "--name", "ephiPulse",
-      "--memory", 2048,
+      "--memory", 1536,
       "--cpus", 1
     ]
 
@@ -67,6 +67,6 @@ Vagrant.configure(2) do |config|
   # information on available options.
   
   # Run build script
-  config.vm.provision "shell", path: "ephi-reportShell.sh"
+  # config.vm.provision "shell", path: "ephi-reportShell.sh"
 
 end

@@ -11,12 +11,14 @@
 
 
 # ####################################################### REFRESH CACHE
+# apt update
 echo "------------ APT UPDATE ------------" 
 sudo apt update
 
 
 
 # ####################################################### INSTALL UTILITIES
+# utilities
 echo "------------ INSTALL UTILITIES ------------" 
 
 # Git
@@ -89,12 +91,10 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 # cd aggregate-2.0.5
 
 
-
 echo "------------ INSTALL APP ENVIONRMENT ------------" 
 
 # ####################################################### Nginx
-# install nginx
-	# https://www.nginx.com/
+# install nginx (https://www.nginx.com/)
 sudo apt install -y nginx
 nginx -v
 
@@ -116,17 +116,22 @@ sails -v
 # install pm2
 	# https://pm2.keymetrics.io/
 sudo npm install -g pm2@4.2.3
+pm2 -v
 
 # ####################################################### ephi-reportPulse app
-
 # go to nginx folder
 cd /home/ubuntu/nginx/www/
 # clone ephi-reportPulse app
 git clone https://github.com/pfitzpaddy/ephi-reportPulse.git
+# cd into folder
+cd ephi-reportPulse
 # install dependencies
 sudo npm install
 
+
 # ####################################################### ephi-reportPulse sails db connection
+# local config to protect database connection string
+echo "------------ CONFIGURE DB CONNECTION ------------" 
 # create local.js file (db connection strings, ignored in repo)
 echo -e "/**
  * Local environment settings
@@ -144,6 +149,8 @@ module.exports.datastores = {
 
 
 # ####################################################### Nginx
+# nginx (https://www.nginx.com/)
+echo "------------ CONFIGURE NGINX WEB CONFIG ------------" 
 # set nginx conf
 echo -e "##
 # You should look at the following URL's in order to grasp a solid understanding
@@ -193,8 +200,9 @@ sudo service nginx restart
 
 
 # ####################################################### Start the APP!
+# start ephiPulse
+echo "------------ START THE APP ------------" 
 # app location
 cd /home/ubuntu/nginx/www/ephi-reportPulse
 # sudo sails lift
 sudo sails lift
-
