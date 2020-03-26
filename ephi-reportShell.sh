@@ -207,7 +207,7 @@ server {
 
 }" | sudo tee /etc/nginx/sites-available/default
 # symb link
-# sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 # reload configuration
 sudo service nginx restart
 
