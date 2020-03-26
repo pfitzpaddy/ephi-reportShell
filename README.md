@@ -18,18 +18,12 @@ Steps
 
 2. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 and server configuration detailed in ``ephi-reportShell.sh``
 
-3. Once installation is complete, ``ssh`` into the machine
+3. Once installation is complete;
+
+	3a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+
+	3b. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
+
+3. ``ssh`` into the machine to administrate
 
 		$ vagrant ssh
-		
-4. Within the server, navigate to the ``ephi-reportPulse`` repository
-
-		$ cd /home/ubuntu/nginx/www/ephi-reportEngine
-		
-5. Start the Sails RestAPI application
-
-		$ sudo sails lift
-
-6. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
-
-7. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
