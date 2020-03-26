@@ -47,6 +47,7 @@ sudo apt-get install -y tomcat8 tomcat8-docs tomcat8-examples tomcat8-admin tomc
 sudo sed -i 's|</tomcat-users>|<role rolename="manager-gui"/><role rolename="admin-gui"/><user username="admin" password="ephiadmin" roles="manager-gui,admin-gui"/></tomcat-users>|' /var/lib/tomcat8/conf/tomcat-users.xml
 # start tomcat8 (start, stop, restart)
 sudo systemctl start tomcat8
+sudo systemctl restart tomcat8
 
 
 # 4) & 5) configured later
