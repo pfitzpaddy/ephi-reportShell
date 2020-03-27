@@ -18,7 +18,6 @@
     # https://github.com/opendatakit/aggregate/blob/master/docs/aggregate-config.md
 
 echo "------------ INSTALL GIT LFS ------------"
-echo "------------ " 
 # ####################################################### git lfs
 # git lfs (large file system)
 cd /tmp
@@ -28,7 +27,6 @@ git lfs install
 
 
 echo "------------ CONFIGURE ODK AGGREGATE ------------"
-echo "------------ " 
 # ####################################################### java jre for gradle
 # go to nginx folder
 cd /home/ubuntu/nginx/www/
@@ -39,7 +37,6 @@ git clone https://github.com/pfitzpaddy/ephi-aggregate.git
 cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties.example /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
 cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/odk-settings.xml.example /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/odk-settings.xml
 cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties.example /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties
-
 
 # configuration
 # update security.properties.xml
@@ -55,7 +52,6 @@ sudo sed -i "s|jdbc.schema=aggregate|jdbc.schema=phem|" /home/ubuntu/nginx/www/e
 
 
 echo "------------ INSTALL GRADLE ------------"
-echo "------------ " 
 # ####################################################### Gradle
 # gradle v3.x.x (install after JAVA)
   # gradle 5.x+ does not support "getClassesDir"
@@ -73,12 +69,9 @@ gradle -v
 
 
 echo "------------ INSTALL JRE ------------"
-echo "------------ " 
 # ####################################################### java jre for gradle
 # jdk
 sudo apt install -y openjdk-8-jdk-headless
-
-
 
 
 echo "------------ INSTALL installbuilder-18 ------------"
@@ -94,8 +87,6 @@ sudo ./installbuilder-enterprise-18.10.0-linux-x64-installer.run
   # y
   # y
   # n
-
-
 
 
 echo "------------ COMPILE ODK AGGREGATE ------------"
@@ -122,6 +113,4 @@ chmod +x /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2
 ./ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
 sudo cp /home/ubuntu/data/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
 sudo systemctl restart tomcat8
-
-
 

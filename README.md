@@ -6,10 +6,10 @@ Report. Validate. Protect.
 
 ### Requirements
 
-- Dropbox 93.x.x
+- git
+- Dropbox v93.x.x
 - Vagrant v2.x.x
 - VirtualBox v6.x.x
-- git
 
 # Running ephiPulse
 

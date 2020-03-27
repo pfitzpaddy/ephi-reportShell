@@ -13,13 +13,11 @@
 # ####################################################### REFRESH CACHE
 # apt update
 echo "------------ APT UPDATE ------------" 
-echo "------------ " 
 sudo apt update
 
 # ####################################################### INSTALL UTILITIES
 # utilities
 echo "------------ INSTALL UTILITIES ------------" 
-echo "------------ " 
 
 # git
 sudo apt install -y git
@@ -29,13 +27,31 @@ git --version
 # install unzip
 sudo apt install -y zip unzip
 
+# ####################################################### FETCH DATA & CONFIG FILES
+# sql && war
+echo "------------ FETCHING DATA & CONFIG FILES ------------" 
+# tmp
+cd /tmp
+
+# sql
+wget 'https://www.dropbox.com/s/9s01s7tf2q9nqdm/sql-20200327.zip?dl=1' -O sql-20200327.zip
+sudo unzip -d /home/ubuntu/data/ sql-20200327.zip
+rm sql-20200327.zip
+# clean up
+rm -rf /home/ubuntu/data/__MACOSX
+
+# war
+wget 'https://www.dropbox.com/s/cdub7fxsgamg6nx/war-20200327.zip?dl=1' -O war-20200327.zip
+sudo unzip -d /home/ubuntu/data/ war-20200327.zip
+rm war-20200327.zip
+# clean up
+rm -rf /home/ubuntu/data/__MACOSX
 
 
 
 # ####################################################### ODK Aggregate
 ### INSTALL ODK AGGREGATE (https://docs.opendatakit.org/aggregate-tomcat/)
 echo "------------ INSTALL ODK Aggregate ------------" 
-echo "------------ " 
 
 # ####################################################### Tomcat8
 # 1), 2) & 3)
@@ -108,9 +124,7 @@ sudo systemctl restart tomcat8
 
 
 echo "------------ INSTALL APP ENVIONRMENT ------------"
-echo "------------ " 
 # ####################################################### Nginx, Nodejs, Sailsjs, Pm2
-
 
 # ####################################################### Nginx
 # install nginx (https://www.nginx.com/)
@@ -137,7 +151,6 @@ sails -v
 sudo npm install -g pm2@4.2.3
 pm2 -v
 
-
 echo "------------ PULL ephi-reportPulse APP ------------"
 echo "------------ " 
 # ####################################################### ephi-reportPulse app
@@ -150,6 +163,7 @@ cd /home/ubuntu/nginx/www/ephi-reportPulse
 # install dependencies (--no-bin-links to avoid 'npm ERR! code EPROTO')
   # https://github.com/laravel/homestead/issues/611
 sudo npm install --no-bin-links
+
 
 
 # ####################################################### ephi-reportPulse sails db connection
@@ -170,6 +184,7 @@ module.exports.datastores = {
     connectTimeout: 40000
   }
 }" | sudo tee /home/ubuntu/nginx/www/ephi-reportPulse/config/local.js
+
 
 
 # ####################################################### Nginx
@@ -226,13 +241,11 @@ sudo service nginx restart
 sudo nginx -t
 
 
+
 # ####################################################### Start the APP!
 # start ephiPulse
 echo "------------ START THE APP ------------" 
-echo "------------ " 
 # app location
 cd /home/ubuntu/nginx/www/ephi-reportPulse
 # lift
 # sudo sails lift
-
-
