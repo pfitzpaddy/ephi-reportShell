@@ -25,24 +25,24 @@ Steps
 
 3. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 virtual bo
 
-	2a. Wait until ``ubuntu/xenial64`` downloads....
+	3a. Wait until ``ubuntu/xenial64`` downloads....
 
 4. Once complete, ``ssh`` into the machine
 
 		$ vagrant ssh
 
-4. Run each command detailed in ``ephi-reportShell.sh`` to complete server configuration
+5. Run each command detailed in ``ephi-reportShell.sh`` to complete server configuration
 
-5. Once configuration is complete, navigate to ``ephi-reportPulse`` and lift the sails app
+6. Once configuration is complete, navigate to ``ephi-reportPulse`` and lift the sails app
 
 		$ cd /home/ubuntu/nginx/www/ephi-reportPulse
 		$ sudo sails lift
 		
-6. Installation is complete!
+7. Installation is complete!
 
-	6a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+	7a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
 
-	6b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+	7b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
 	
-	6c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
+	7c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
 	
