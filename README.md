@@ -9,23 +9,40 @@ Report. Validate. Protect.
 - Dropbox 93.x.x
 - Vagrant v2.x.x
 - VirtualBox v6.x.x
+- git
 
 # Running ephiPulse
 
 Steps
 
-1. In the terminal, clone this repository and navigate into ``ephi-reportShell``
+1. In the terminal, clone this repository 
 
-2. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 and server configuration detailed in ``ephi-reportShell.sh``
+		$ git https://github.com/pfitzpaddy/ephi-reportShell.git
+		
+2. cd into the repository
 
-3. Once installation is complete;
+		$ cd ephi-reportShell
 
-	3a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+3. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 virtual bo
 
-	3b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+	2a. Wait until ``ubuntu/xenial64`` downloads....
 
-	3c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
-
-3. ``ssh`` into the machine to administrate
+4. Once complete, ``ssh`` into the machine
 
 		$ vagrant ssh
+
+4. Run each command detailed in ``ephi-reportShell.sh`` to complete server configuration
+
+5. Once configuration is complete, navigate to ``ephi-reportPulse`` and lift the sails app
+
+		$ cd /home/ubuntu/nginx/www/ephi-reportPulse
+		$ sudo sails lift
+		
+6. Installation is complete!
+
+	6a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+
+	6b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+	
+	6c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
+	
