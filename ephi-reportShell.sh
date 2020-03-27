@@ -98,8 +98,10 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 # 
 echo "------------ deploy ODK WAR ------------" 
 echo "------------ " 
-# username: ephiadmin
-# username: aggregate (until you change it via the Site Admin tab)
+# default ODK log-in
+  # username: ephiadmin
+  # username: aggregate (until you change it via the Site Admin tab)
+  # https://forum.opendatakit.org/t/failed-to-login-odk-aggregate/4469/8
 sudo cp /home/ubuntu/data/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
 sudo systemctl restart tomcat8
 

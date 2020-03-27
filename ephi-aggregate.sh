@@ -40,7 +40,12 @@ cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties.exam
 cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/odk-settings.xml.example /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/odk-settings.xml
 cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties.example /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties
 
-# ephi installation
+
+# configuration
+# update security.properties.xml
+sudo sed -i "s|security.server.hostname=|security.server.hostname=192.168.66.12|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties
+sudo sed -i "s|security.server.superUserUsername=administrator|security.server.superUserUsername=ephiadmin|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties
+
 # update jdbc.properties
 sudo sed -i "s|jdbc.resourceName=jdbc/aggregate|jdbc.resourceName=jdbc/ephi|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
 sudo sed -i "s|jdbc.url=jdbc:postgresql://127.0.0.1/aggregate?autoDeserialize=true|jdbc.url=jdbc:postgresql://127.0.0.1/ephi?autoDeserialize=true|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
@@ -106,10 +111,13 @@ cd /home/ubuntu/nginx/www/ephi-aggregate
 # grable compile ODK Aggregate WAR file
 ./gradlew clean build installerBuild -xtest -PwarMode=installer
 
+# ####################################################### ODK Aggregate installer
 # unzip ubuntu
 cd /home/ubuntu/nginx/www/ephi-aggregate/build/installers
 sudo unzip /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run.zip 
 chmod +x /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
+
+# ####################################################### ODK Aggregate builder
 # run installer and set config
 ./ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
 sudo cp /home/ubuntu/data/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
