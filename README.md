@@ -22,7 +22,9 @@ Steps
 
 	3a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
 
-	3b. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
+	3b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+
+	3c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
 
 3. ``ssh`` into the machine to administrate
 

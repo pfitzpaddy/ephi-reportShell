@@ -42,11 +42,11 @@ cp /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/security.properties.
 
 # ephi installation
 # update jdbc.properties
-sudo sed -i "s|jdbc.resourceName=jdbc/aggregate|jdbc.resourceName=jdbc/ephi|" /home/ubuntu/data/aggregate-2.0.5/src/main/resources/jdbc.properties
-sudo sed -i "s|jdbc.url=jdbc:postgresql://127.0.0.1/aggregate?autoDeserialize=true|jdbc.url=jdbc:postgresql://127.0.0.1/ephi?autoDeserialize=true|" /home/ubuntu/data/aggregate-2.0.5/src/main/resources/jdbc.properties
-sudo sed -i "s|jdbc.username=aggregate|jdbc.username=ephiadmin|" /home/ubuntu/data/aggregate-2.0.5/src/main/resources/jdbc.properties
-sudo sed -i "s|jdbc.password=aggregate|jdbc.password=ephiadmin|" /home/ubuntu/data/aggregate-2.0.5/src/main/resources/jdbc.properties
-sudo sed -i "s|jdbc.schema=aggregate|jdbc.schema=phem|" /home/ubuntu/data/aggregate-2.0.5/src/main/resources/jdbc.properties
+sudo sed -i "s|jdbc.resourceName=jdbc/aggregate|jdbc.resourceName=jdbc/ephi|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
+sudo sed -i "s|jdbc.url=jdbc:postgresql://127.0.0.1/aggregate?autoDeserialize=true|jdbc.url=jdbc:postgresql://127.0.0.1/ephi?autoDeserialize=true|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
+sudo sed -i "s|jdbc.username=aggregate|jdbc.username=ephiadmin|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
+sudo sed -i "s|jdbc.password=aggregate|jdbc.password=ephiadmin|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
+sudo sed -i "s|jdbc.schema=aggregate|jdbc.schema=phem|" /home/ubuntu/nginx/www/ephi-aggregate/src/main/resources/jdbc.properties
 
 
 echo "------------ INSTALL GRADLE ------------"
@@ -83,7 +83,7 @@ echo "------------ "
 cd /tmp
 # 145 MB download
 wget https://installbuilder.com/installbuilder-enterprise-18.10.0-linux-x64-installer.run
-chmod +x installbuilder-enterprise-18.10.0-linux-x64-installer.run
+sudo chmod +x installbuilder-enterprise-18.10.0-linux-x64-installer.run
 sudo ./installbuilder-enterprise-18.10.0-linux-x64-installer.run
   # 13
   # y
@@ -105,12 +105,14 @@ cd /home/ubuntu/nginx/www/ephi-aggregate
 # gradle localhost run appRunWar (./gradlew appRunWar)
 # grable compile ODK Aggregate WAR file
 ./gradlew clean build installerBuild -xtest -PwarMode=installer
+
 # unzip ubuntu
 cd /home/ubuntu/nginx/www/ephi-aggregate/build/installers
 sudo unzip /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run.zip 
 chmod +x /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
+# run installer and set config
 ./ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
-sudo mv /home/ubuntu/nginx/www/ephi-aggregate/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
+sudo cp /home/ubuntu/data/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
 sudo systemctl restart tomcat8
 
 

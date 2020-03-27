@@ -94,6 +94,15 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_2.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_3.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 
+# ####################################################### Deploy ODK Aggregate
+# 
+echo "------------ deploy ODK WAR ------------" 
+echo "------------ " 
+# username: ephiadmin
+# username: aggregate (until you change it via the Site Admin tab)
+sudo cp /home/ubuntu/data/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
+sudo systemctl restart tomcat8
+
 
 
 echo "------------ INSTALL APP ENVIONRMENT ------------"
