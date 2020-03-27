@@ -74,6 +74,8 @@ echo "------------ "
 sudo apt install -y openjdk-8-jdk-headless
 
 
+
+
 echo "------------ INSTALL installbuilder-18 ------------"
 echo "------------ " 
 # ####################################################### installbuilder-18
@@ -89,6 +91,8 @@ sudo ./installbuilder-enterprise-18.10.0-linux-x64-installer.run
   # n
 
 
+
+
 echo "------------ COMPILE ODK AGGREGATE ------------"
 echo "------------ " 
 # ####################################################### java jre for gradle
@@ -102,19 +106,12 @@ cd /home/ubuntu/nginx/www/ephi-aggregate
 # grable compile ODK Aggregate WAR file
 ./gradlew clean build installerBuild -xtest -PwarMode=installer
 # unzip ubuntu
-# cd /home/ubuntu/nginx/www/ephi-aggregate/build/installers
-# sudo unzip /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run.zip 
-# chmod +x /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
-# ./ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
-sudo mv /home/ubuntu/nginx/www/ephi-aggregate/build/installer/files/ODKAggregate.war /var/lib/tomcat8/webapps
+cd /home/ubuntu/nginx/www/ephi-aggregate/build/installers
+sudo unzip /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run.zip 
+chmod +x /home/ubuntu/nginx/www/ephi-aggregate/build/installers/ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
+./ODK-Aggregate-v2.0.5-dirty-Linux-x64.run
 sudo mv /home/ubuntu/nginx/www/ephi-aggregate/war/ODK\ Aggregate/ODKAggregate.war /var/lib/tomcat8/webapps/
 sudo systemctl restart tomcat8
 
 
-# echo "------------ MV TO TOMCAT8 ------------"
-# echo "------------ " 
-# # ####################################################### java jre for gradle
-# # mv WAR file
 
-# # restart tomcat8
-# sudo systemctl restart tomcat8
