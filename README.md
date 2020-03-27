@@ -23,7 +23,7 @@ Steps
 
 		$ cd ephi-reportShell
 
-3. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 virtual bo
+3. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 virtual box
 
 	3a. Wait until ``ubuntu/xenial64`` downloads....
 
