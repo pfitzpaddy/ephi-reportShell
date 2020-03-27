@@ -15,34 +15,43 @@ Report. Validate. Protect.
 
 Steps
 
-1. In the terminal, clone this repository 
+1. On your local machine, create a project folder
+
+		$ mkdir ephiPulse
+
+2. On your local machine, create a ``data`` folder within your project folder (this is for mounting the shared drive between host and the Virtual Machine)
+
+		$ cd ephiPulse
+		$ mkdir data
+		
+3. In the terminal, clone this repository 
 
 		$ git https://github.com/pfitzpaddy/ephi-reportShell.git
 		
-2. cd into the repository
+4. cd into the repository
 
 		$ cd ephi-reportShell
 
-3. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 virtual box
+5. Type ``vagrant up`` to install Ubuntu LTS 16.0.4 virtual box
 
-	3a. Wait until ``ubuntu/xenial64`` downloads....
+	5a. Wait until ``ubuntu/xenial64`` downloads....
 
-4. Once complete, ``ssh`` into the machine
+6. Once complete, ``ssh`` into the machine
 
 		$ vagrant ssh
 
-5. Run each command detailed in ``ephi-reportShell.sh`` to complete server configuration
+7. Run each command detailed in ``ephi-reportShell.sh`` to complete server configuration
 
-6. Once configuration is complete, navigate to ``ephi-reportPulse`` and lift the sails app
+8. Once configuration is complete, navigate to ``ephi-reportPulse`` and lift the sails app
 
 		$ cd /home/ubuntu/nginx/www/ephi-reportPulse
 		$ sudo sails lift
 		
-7. Installation is complete!
+9. Installation is complete!
 
-	7a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+	9a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
 
-	7b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+	9b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
 	
-	7c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
+	9c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
 	
