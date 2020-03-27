@@ -19,7 +19,7 @@ Steps
 
 		$ mkdir ephiPulse
 
-2. On your local machine, create a ``data`` folder within your project folder (this is for mounting the shared drive between host and the Virtual Machine)
+2. On your local machine, create a ``data`` folder within your project folder (i.e. ``ephiPulse/data``). This is for mounting the shared drive between host machine and the Virtual Machine
 
 		$ cd ephiPulse
 		$ mkdir data
