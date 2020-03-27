@@ -16,18 +16,19 @@ echo "------------ APT UPDATE ------------"
 echo "------------ " 
 sudo apt update
 
-
-
 # ####################################################### INSTALL UTILITIES
 # utilities
 echo "------------ INSTALL UTILITIES ------------" 
 echo "------------ " 
 
-# Git
+# git
 sudo apt install -y git
 # check version
 git --version
-# sudo apt install -y unzip
+
+# install unzip
+sudo apt install -y zip unzip
+
 
 
 
@@ -36,7 +37,6 @@ git --version
 echo "------------ INSTALL ODK Aggregate ------------" 
 echo "------------ " 
 
-
 # ####################################################### Tomcat8
 # 1), 2) & 3)
 echo "------------ install tomcat8 ------------" 
@@ -44,14 +44,13 @@ echo "------------ "
 	# https://www.linode.com/docs/development/frameworks/apache-tomcat-on-ubuntu-16-04/
 sudo apt-get install -y tomcat8 tomcat8-docs tomcat8-examples tomcat8-admin tomcat8-user # (OpenJDK installed as dependency)
 # add tomcat admin page
-sudo sed -i 's|</tomcat-users>|<role rolename="manager-gui"/><role rolename="admin-gui"/><user username="admin" password="ephiadmin" roles="manager-gui,admin-gui"/></tomcat-users>|' /var/lib/tomcat8/conf/tomcat-users.xml
+sudo sed -i 's|</tomcat-users>|<role rolename="manager-gui"/><role rolename="admin-gui"/><user username="ephiadmin" password="ephiadmin" roles="manager-gui,admin-gui"/></tomcat-users>|' /var/lib/tomcat8/conf/tomcat-users.xml
 # start tomcat8 (start, stop, restart)
 sudo systemctl start tomcat8
 sudo systemctl restart tomcat8
 
-
+# ####################################################### Network && SSL
 # 4) & 5) configured later
-
 
 # ####################################################### PostgreSQL && PostGIS
 # 6) install PostgreSQL && spatial databases
@@ -63,12 +62,16 @@ wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo ap
 sudo apt update
 sudo apt install -y postgresql-10-postgis-2.4 postgresql-contrib
 sudo apt install -y postgis
-# create PostGIS extensions && ephiadmin postgresql user
+# create PostGIS extensions && ephiadmin postgresql user for SCHEMA admin && phem
 sudo -u postgres psql -c "CREATE ROLE ephiadmin WITH LOGIN SUPERUSER PASSWORD 'ephiadmin';"
 sudo -u postgres psql -c "CREATE DATABASE ephi WITH OWNER ephiadmin;"
 sudo -u postgres psql -d ephi -c "CREATE EXTENSION postgis;"
 sudo -u postgres psql -d ephi -c "CREATE SCHEMA admin;"
 sudo -u postgres psql -d ephi -c "CREATE SCHEMA phem;"
+sudo -u postgres psql -d ephi -c "ALTER SCHEMA admin OWNER TO ephiadmin;"
+sudo -u postgres psql -d ephi -c "ALTER SCHEMA phem OWNER TO ephiadmin;"
+sudo -u postgres psql -d ephi -c "GRANT ALL PRIVILEGES ON SCHEMA admin TO ephiadmin;"
+sudo -u postgres psql -d ephi -c "GRANT ALL PRIVILEGES ON SCHEMA phem TO ephiadmin;"
 # udpate listen_address (to access from host machine)
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/10/main/postgresql.conf
 # update pg_hba.conf (to enable connection)
@@ -92,17 +95,11 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_3.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 
 
-# ####################################################### ODK Aggregate
-# 7) install ODK Aggregate
-	# https://github.com/opendatakit/aggregate/blob/v2.0.5/docs/build-the-installer-app.md
-# cd /home/ubuntu/data
-# wget https://github.com/opendatakit/aggregate/archive/v2.0.5.tar.gz
-# sudo tar xzvf v2.0.5.tar.gz 
-# cd aggregate-2.0.5
-
 
 echo "------------ INSTALL APP ENVIONRMENT ------------"
 echo "------------ " 
+# ####################################################### Nginx, Nodejs, Sailsjs, Pm2
+
 
 # ####################################################### Nginx
 # install nginx (https://www.nginx.com/)
@@ -123,26 +120,30 @@ npm -v
 sudo npm install sails@1.2.4 -g
 sails -v
 
-# ####################################################### pm2
+# ####################################################### Pm2
 # install pm2
 	# https://pm2.keymetrics.io/
 sudo npm install -g pm2@4.2.3
 pm2 -v
 
+
+echo "------------ PULL ephi-reportPulse APP ------------"
+echo "------------ " 
 # ####################################################### ephi-reportPulse app
 # go to nginx folder
 cd /home/ubuntu/nginx/www/
 # clone ephi-reportPulse app
 git clone https://github.com/pfitzpaddy/ephi-reportPulse.git
 # cd into folder
-cd ephi-reportPulse
-# install dependencies
-sudo npm install
+cd /home/ubuntu/nginx/www/ephi-reportPulse
+# install dependencies (--no-bin-links to avoid 'npm ERR! code EPROTO')
+  # https://github.com/laravel/homestead/issues/611
+sudo npm install --no-bin-links
 
 
 # ####################################################### ephi-reportPulse sails db connection
 # local config to protect database connection string
-echo "------------ CONFIGURE DB CONNECTION ------------" 
+echo "------------ CONFIGURE EPHI PULSE DB CONNECTION ------------" 
 echo "------------ " 
 # create local.js file (db connection strings, ignored in repo)
 echo -e "/**
@@ -210,6 +211,8 @@ server {
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 # reload configuration
 sudo service nginx restart
+# chech conf
+sudo nginx -t
 
 
 # ####################################################### Start the APP!
@@ -218,5 +221,7 @@ echo "------------ START THE APP ------------"
 echo "------------ " 
 # app location
 cd /home/ubuntu/nginx/www/ephi-reportPulse
+# lift
 # sudo sails lift
-sudo sails lift
+
+
