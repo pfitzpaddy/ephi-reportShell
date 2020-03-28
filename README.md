@@ -26,7 +26,7 @@ Steps
 		
 3. In the terminal, clone this repository 
 
-		$ git https://github.com/pfitzpaddy/ephi-reportShell.git
+		$ git clone https://github.com/pfitzpaddy/ephi-reportShell.git
 		
 4. cd into the repository
 
