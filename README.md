@@ -50,8 +50,14 @@ Steps
 9. Installation is complete!
 
 	9a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+	
+	> username: ephiadmin
+	> password: ephiadmin
 
 	9b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+	
+	> username: ephiadmin
+	> password: aggregate	
 	
 	9c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
 	
