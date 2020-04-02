@@ -110,6 +110,14 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_2.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_3.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 
+# set SRID of eth_adminsites to EPSG:4326
+sudo -u postgres psql -d ephi -c "SELECT UpdateGeometrySRID('admin', 'eth_adminsites','geom',4326);"
+
+# remove duplicates from eth_adminsites.sql
+sudo -u postgres psql -d ephi -c 'DROP TABLE IF EXISTS admin.eth_adminsites_1; CREATE TABLE admin.eth_adminsites_1 AS SELECT distinct on (site_id) "adminRpcode", "adminRname", "adminRtype_name", "adminRlng", "adminRlat", "adminRzoom", admin0pcode, admin0name, admin0type_name, admin0lng, admin0lat, admin0zoom, admin1pcode, admin1name, admin1type_name, admin1lng, admin1lat, admin1zoom, admin2pcode, admin2name, admin2type_name, admin2lng, admin2lat, admin2zoom, admin3pcode, admin3name, admin3type_name, admin3lng, admin3lat, admin3zoom, "conflict", site_id, site_status, site_class_id, site_class_name, site_type_id, site_type_name, site_name, site_lng, site_lat, geom FROM admin.eth_adminsites order by site_id;'
+sudo -u postgres psql -d ephi -c 'DROP TABLE IF EXISTS admin.eth_adminsites; ALTER TABLE admin.eth_adminsites_1 RENAME TO eth_adminsites;'
+
+
 # ####################################################### Deploy ODK Aggregate
 # 
 echo "------------ deploy ODK WAR ------------" 
@@ -144,6 +152,11 @@ npm -v
 	# https://sailsjs.com/
 sudo npm install sails@1.2.4 -g
 sails -v
+
+# ####################################################### grunt
+# install grunt (task manager)
+  # https://sailsjs.com/
+sudo npm install -g grunt-cli
 
 # ####################################################### Pm2
 # install pm2
@@ -249,3 +262,48 @@ echo "------------ START THE APP ------------"
 cd /home/ubuntu/nginx/www/ephi-reportPulse
 # lift
 # sudo sails lift
+
+
+
+# ####################################################### Load Emulator to Test ODK Froms
+
+
+# ####################################################### 1. Load Android Emnulator (reccomended)
+# 1. Downlaod and install Adnroid Developer Studio
+  # https://developer.android.com/studio
+# 2. Create and manage virtual devices
+  # https://developer.android.com/studio/run/managing-avds
+# 3. Run AVD
+# 4. Install ODK Collect on AVD
+
+
+# ####################################################### 2. Load Chromeos Emnulator
+# Reference https://www.youtube.com/watch?v=WXeFRu6Inwg
+# Readme https://github.com/vladikoff/chromeos-apk/blob/master/archon.md
+# Convert APK to ARChon https://github.com/vladikoff/chromeos-apk
+
+# 1. download ARChon
+  # https://archon-runtime.github.io/
+# 2. unzip
+# 3. go to "chrome://extensions/" in chrome brower
+# 4. Turn developer mode "on"
+# 5. "Load unpacked"
+# 6. Clear errors
+# 7. Convert APK to ARChon
+  # 7.1 install chromeos-apk
+  cd ~
+  sudo npm install chromeos-apk -g
+  # 7.2 concert to chromeos
+  cd /home/ubuntu/data/android/
+  chromeos-apk ODK-Collect-v1.26.1.apk
+  ######### NOTE! ######### 
+  # 7.3 update manifest.json to avoid error message within new chromeos folder "org.odk.collect.android.android"
+  # within "org.odk.collect.android.android" folder, copy "packageName": "org.odk.collect.android" in manifest.json
+  # within "org.odk.collect.android.android" folder, navigate to "_locales" -> "en" and add
+    # "message": "org.odk.collect.android"
+  # 7.4 clear errors
+  # 7.5 go to "chrome://apps/" in chrome brower
+
+  # Wait..... ODK Collect loads!?
+
+
