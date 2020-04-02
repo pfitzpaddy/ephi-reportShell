@@ -19,14 +19,14 @@ Steps
 
 		$ mkdir ephiPulse
 
-2. On your local machine, create a ``data`` folder within your project folder (this is for mounting the shared drive between host and the Virtual Machine)
+2. On your local machine, create a ``data`` folder within your project folder (i.e. ``ephiPulse/data``). This is for mounting the shared drive between host machine and the Virtual Machine
 
 		$ cd ephiPulse
 		$ mkdir data
 		
 3. In the terminal, clone this repository 
 
-		$ git https://github.com/pfitzpaddy/ephi-reportShell.git
+		$ git clone https://github.com/pfitzpaddy/ephi-reportShell.git
 		
 4. cd into the repository
 
@@ -50,8 +50,14 @@ Steps
 9. Installation is complete!
 
 	9a. Navigate to [http://192.168.66.12:8080](http://192.168.66.12:8080/manager/html) and Tomcat8 is running!
+	
+	> username: ephiadmin
+	> password: ephiadmin
 
 	9b. Navigate to [http://192.168.66.12:8080/ODKAggregate](http://192.168.66.12:8080/ODKAggregate) and ODK Aggregate is running!
+	
+	> username: ephiadmin
+	> password: aggregate	
 	
 	9c. Navigate to [http://192.168.66.12](http://192.168.66.12) and ephiPulse is running!
 	
