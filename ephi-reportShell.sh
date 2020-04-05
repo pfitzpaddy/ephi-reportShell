@@ -100,7 +100,12 @@ echo "------------ "
 # restart (to update changes)
 sudo /etc/init.d/postgresql restart
 
-# ####################################################### Spatial DB
+# ####################################################### Backup Table 
+# pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites_hc_2018 --inserts  > /home/ubuntu/data/sql/eth_adminsites_hc_2018.sql
+# pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites_mfl_2020 --inserts  > /home/ubuntu/data/sql/eth_adminsites_mfl_2020.sql
+# pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites --inserts  > /home/ubuntu/data/sql/eth_adminsites.sql
+
+# ####################################################### Restore Spatial DB
 # 6a) backup spatial databases
 echo "------------ restore administrative spatial db tables ------------"
 echo "------------ " 
@@ -108,14 +113,17 @@ echo "------------ "
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_1.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_2.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_3.sql
+psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites_hc_2018.sql
+psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_health_facilities_mfl_2020.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 
-# set SRID of eth_adminsites to EPSG:4326
-sudo -u postgres psql -d ephi -c "SELECT UpdateGeometrySRID('admin', 'eth_adminsites','geom',4326);"
-
-# remove duplicates from eth_adminsites.sql
-sudo -u postgres psql -d ephi -c 'DROP TABLE IF EXISTS admin.eth_adminsites_1; CREATE TABLE admin.eth_adminsites_1 AS SELECT distinct on (site_id) "adminRpcode", "adminRname", "adminRtype_name", "adminRlng", "adminRlat", "adminRzoom", admin0pcode, admin0name, admin0type_name, admin0lng, admin0lat, admin0zoom, admin1pcode, admin1name, admin1type_name, admin1lng, admin1lat, admin1zoom, admin2pcode, admin2name, admin2type_name, admin2lng, admin2lat, admin2zoom, admin3pcode, admin3name, admin3type_name, admin3lng, admin3lat, admin3zoom, "conflict", site_id, site_status, site_class_id, site_class_name, site_type_id, site_type_name, site_name, site_lng, site_lat, geom FROM admin.eth_adminsites order by site_id;'
-sudo -u postgres psql -d ephi -c 'DROP TABLE IF EXISTS admin.eth_adminsites; ALTER TABLE admin.eth_adminsites_1 RENAME TO eth_adminsites;'
+# ####################################################### sph2pgsql
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_admin_1/eth_admin_1.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_admin_1
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_admin_2/eth_admin_2.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_admin_2
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_admin_3/eth_admin_3.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_admin_3
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites_hc_2018/eth_adminsites_hc_2018.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites_hc_2018
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites_mfl_2020/eth_adminsites_mfl_2020.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites_mfl_2020
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites/eth_adminsites.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites
 
 
 # ####################################################### Deploy ODK Aggregate
