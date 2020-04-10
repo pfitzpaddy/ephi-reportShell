@@ -103,6 +103,7 @@ sudo /etc/init.d/postgresql restart
 # ####################################################### Backup Table 
 # pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites_hc_2018 --inserts  > /home/ubuntu/data/sql/eth_adminsites_hc_2018.sql
 # pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites_mfl_2020 --inserts  > /home/ubuntu/data/sql/eth_adminsites_mfl_2020.sql
+# pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites_combined --inserts  > /home/ubuntu/data/sql/eth_adminsites_combined.sql
 # pg_dump -d ephi -U ephiadmin -t admin.eth_adminsites --inserts  > /home/ubuntu/data/sql/eth_adminsites.sql
 
 # ####################################################### Restore Spatial DB
@@ -115,6 +116,7 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_2.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_admin_3.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites_hc_2018.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_health_facilities_mfl_2020.sql
+psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites_combined.sql
 psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 
 # ####################################################### sph2pgsql
@@ -123,6 +125,7 @@ psql -U ephiadmin -d ephi -f /home/ubuntu/data/sql/eth_adminsites.sql
 # pgsql2shp -f '/home/ubuntu/data/shp/output/eth_admin_3/eth_admin_3.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_admin_3
 # pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites_hc_2018/eth_adminsites_hc_2018.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites_hc_2018
 # pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites_mfl_2020/eth_adminsites_mfl_2020.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites_mfl_2020
+# pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites_combined/eth_adminsites_combined.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites_combined
 # pgsql2shp -f '/home/ubuntu/data/shp/output/eth_adminsites/eth_adminsites.shp' -h 127.0.0.1 -u ephiadmin -P ephiadmin ephi admin.eth_adminsites
 
 
@@ -299,11 +302,11 @@ cd /home/ubuntu/nginx/www/ephi-reportPulse
 # 6. Clear errors
 # 7. Convert APK to ARChon
   # 7.1 install chromeos-apk
-  cd ~
-  sudo npm install chromeos-apk -g
+    # cd ~
+    # sudo npm install chromeos-apk -g
   # 7.2 concert to chromeos
-  cd /home/ubuntu/data/android/
-  chromeos-apk ODK-Collect-v1.26.1.apk
+    # cd /home/ubuntu/data/android/
+    # chromeos-apk ODK-Collect-v1.26.1.apk
   ######### NOTE! ######### 
   # 7.3 update manifest.json to avoid error message within new chromeos folder "org.odk.collect.android.android"
   # within "org.odk.collect.android.android" folder, copy "packageName": "org.odk.collect.android" in manifest.json
