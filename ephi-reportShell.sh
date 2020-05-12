@@ -88,6 +88,19 @@ sudo -u postgres psql -d ephi -c "ALTER SCHEMA admin OWNER TO ephiadmin;"
 sudo -u postgres psql -d ephi -c "ALTER SCHEMA phem OWNER TO ephiadmin;"
 sudo -u postgres psql -d ephi -c "GRANT ALL PRIVILEGES ON SCHEMA admin TO ephiadmin;"
 sudo -u postgres psql -d ephi -c "GRANT ALL PRIVILEGES ON SCHEMA phem TO ephiadmin;"
+# archive for deleted records
+sudo -u postgres psql -d ephi -c "CREATE SCHEMA archive;"
+sudo -u postgres psql -d ephi -c "ALTER SCHEMA archive OWNER TO ephiadmin;"
+sudo -u postgres psql -d ephi -c "GRANT ALL PRIVILEGES ON SCHEMA archive TO ephiadmin;"
+sudo -u postgres psql -d ephi -c 'CREATE TABLE archive.backup (
+                                    id SERIAL NOT NULL PRIMARY KEY,
+                                    "table" character varying(255),
+                                    record jsonb,
+                                    "createdAt" numeric,
+                                    "updatedAt" numeric
+                                  )'
+
+
 # udpate listen_address (to access from host machine)
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/10/main/postgresql.conf
 # update pg_hba.conf (to enable connection)
@@ -201,13 +214,18 @@ echo -e "/**
  * For more information, check out:
  */
 
-module.exports.datastores = {
-  default: {
-    adapter: 'sails-postgresql',
-    url: 'postgresql://ephiadmin:ephiadmin@127.0.0.1:5432/ephi',
-    connectTimeout: 40000
-  }
-}" | sudo tee /home/ubuntu/nginx/www/ephi-reportPulse/config/local.js
+ module.exports.datastores = {
+   admin: {
+     adapter: 'sails-postgresql',
+     url: 'postgresql://ephiadmin:ephiadmin@127.0.0.1:5432/ephi?search_path=admin',
+     connectTimeout: 80000
+   },
+   default: {
+     adapter: 'sails-postgresql',
+     url: 'postgresql://ephiadmin:ephiadmin@127.0.0.1:5432/ephi',
+     connectTimeout: 80000
+   }
+ }" | sudo tee /home/ubuntu/nginx/www/ephi-reportPulse/config/local.js
 
 
 
